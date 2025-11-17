@@ -110,8 +110,8 @@ export function SuperAdminTenantManager() {
                 <tr className="text-text-tertiary text-xs uppercase tracking-wide">
                   <th className="px-3 py-2 text-left">租户</th>
                   <th className="px-3 py-2 text-left">订阅计划</th>
-                  <th className="px-3 py-2 text-left">状态</th>
-                  <th className="px-3 py-2 text-left">封禁</th>
+                  <th className="px-3 py-2 text-center">状态</th>
+                  <th className="px-3 py-2 text-center">封禁</th>
                   <th className="px-3 py-2 text-left">创建时间</th>
                 </tr>
               </thead>
@@ -130,10 +130,10 @@ export function SuperAdminTenantManager() {
                         onChange={(nextPlan) => handlePlanChange(tenant, nextPlan)}
                       />
                     </td>
-                    <td className="px-3">
+                    <td className="px-3 flex mt-4 justify-center">
                       <StatusBadge status={tenant.status} banned={tenant.banned} />
                     </td>
-                    <td className="px-3 py-3">
+                    <td className="px-3 flex mt-4 justify-center">
                       <Button
                         type="button"
                         size="sm"
