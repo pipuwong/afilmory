@@ -8,7 +8,26 @@ Afilmory (/əˈfɪlməri/, "uh-FIL-muh-ree") is a term created for personal phot
 
 A modern photo gallery website built with React + TypeScript, supporting automatic photo synchronization from multiple storage sources (S3, GitHub), featuring high-performance WebGL rendering, masonry layout, EXIF information display, thumbnail generation, and more.
 
-Live Photo Galleries:
+## 🚀 Get Started in Seconds
+
+**👉 [Use the Official SaaS](https://afilmory.art/) - No setup required!**
+
+The easiest way to create your photo gallery is through our hosted service at **[afilmory.art](https://afilmory.art/)**. Sign up, connect your storage, and your gallery is live in minutes—no deployment, no servers, no maintenance.
+
+### Why Use the Official SaaS?
+
+- ✅ **Zero setup** - No configuration, no deployment, no infrastructure management
+- ✅ **Live CMS** - Edit photos, titles, and metadata in real-time without rebuilding
+- ✅ **Custom domains** - Bind your own domain with DNS verification
+- ✅ **Automatic updates** - Always running the latest version with new features
+- ✅ **Managed infrastructure** - We handle scaling, backups, and maintenance
+- ✅ **Built-in billing** - Flexible plans with usage-based pricing
+
+[**Get Started Now →**](https://afilmory.art/)
+
+---
+
+### Live Photo Galleries
 
 - https://afilmory.innei.in
 - https://gallery.mxte.cc
@@ -77,7 +96,11 @@ Designed with adapter pattern, supporting multiple storage backends:
 - **Eagle Storage** - Using Eagle app library as image storage
 - **Local File System** - Local storage for development and testing
 
-## 🚀 Self-Host
+## 🛠️ Self-Host (Advanced)
+
+If you prefer to host Afilmory yourself, you can deploy it on your own infrastructure. This requires more technical knowledge and ongoing maintenance.
+
+> **💡 Tip**: For most users, we recommend using the [official SaaS](https://afilmory.art/) instead. Self-hosting is best suited for developers who need full control over their deployment or have specific infrastructure requirements.
 
 ### Option A: Docker (recommended)
 
@@ -90,6 +113,8 @@ Designed with adapter pattern, supporting multiple storage backends:
 3. Run the builder to generate assets, then start the site.
 
 Looking for developer commands, environment variables, and builder config details? See `DEVELOPMENT.md`.
+
+For detailed self-hosting instructions, see the [Documentation](https://docs.afilmory.art).
 
 ## 🔧 Advanced Usage
 
@@ -128,9 +153,17 @@ export async function customImageProcessor(buffer: Buffer) {
 
 Attribution Network License (ANL) v1.0 © 2025 Afilmory Team. See [LICENSE](LICENSE) for more details.
 
+## 📚 Documentation
+
+- **[Official Documentation](https://docs.afilmory.art/)** - Complete guides, API reference, and tutorials
+- **[Quick Start Guide](https://docs.afilmory.art/getting-started/quick-start)** - Get your gallery running in 5 minutes
+- **[SaaS Mode](https://docs.afilmory.art/saas)** - Learn about hosted galleries and multi-tenant features
+- **[Storage Providers](https://docs.afilmory.art/storage/providers)** - Setup guides for S3, GitHub, B2, and more
+- **[Deployment Guides](https://docs.afilmory.art/deployment)** - Deploy to Vercel, Cloudflare Pages, Docker, and more
+
 ## 🔗 Related Links
 
-- [Live Demo](https://afilmory.innei.in)
+- [Official SaaS](https://afilmory.art/) 
 - [Personal Website](https://innei.in)
 - [GitHub](https://github.com/innei)
 
