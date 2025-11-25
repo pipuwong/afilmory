@@ -44,7 +44,7 @@ export const NocturneHero = () => {
         <div className="grid gap-6 lg:grid-cols-[1.35fr,1fr]">
           <div className="mt-4 aspect-4/3 w-full overflow-hidden rounded-2xl border border-white/10">
             <img
-              src="https://github.com/Afilmory/assets/blob/main/afilmory-readme.webp?raw=true"
+              src="https://cdn.jsdelivr.net/gh/Afilmory/assets/afilmory-readme.webp"
               alt={t('preview.imageAlt')}
               className="h-full w-full object-cover"
             />

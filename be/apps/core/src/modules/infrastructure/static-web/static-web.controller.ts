@@ -28,10 +28,10 @@ export class StaticWebController extends StaticBaseController {
     if (response.status === 404) {
       return await StaticControllerUtils.renderTenantMissingPage(this.staticDashboardService)
     }
-    return response
+    return await this.staticWebService.decorateHomepageResponse(context, response)
   }
 
-  @Get(`/photos/:photoId`)
+  @Get('/photos/:photoId')
   async getStaticPhotoPage(@ContextParam() context: Context, @Param('photoId') photoId: string) {
     if (StaticControllerUtils.isReservedTenant({ root: true })) {
       return await StaticControllerUtils.renderTenantRestrictedPage(this.staticDashboardService)

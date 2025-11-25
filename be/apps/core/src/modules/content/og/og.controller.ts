@@ -7,6 +7,11 @@ import { OgService } from './og.service'
 export class OgController {
   constructor(private readonly ogService: OgService) {}
 
+  @Get('/')
+  async getHomepageOgImage(@ContextParam() context: Context) {
+    return await this.ogService.renderHomepage(context)
+  }
+
   @Get('/:photoId')
   async getOgImage(@ContextParam() context: Context, @Param('photoId') photoId: string) {
     return await this.ogService.render(context, photoId)

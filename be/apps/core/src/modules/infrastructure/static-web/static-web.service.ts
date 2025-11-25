@@ -97,13 +97,51 @@ export class StaticWebService extends StaticAssetService {
       const document = DOM_PARSER.parseFromString(html, 'text/html') as unknown as StaticAssetDocument
       this.removeExistingSocialMeta(document)
       this.updateDocumentTitle(document, `${photo.id} | ${siteTitle}`)
-      this.insertOpenGraphTags(document, photo, origin, siteTitle)
-      this.insertTwitterTags(document, photo, origin, siteTitle)
+      this.insertSocialMetaTags(document, {
+        title: `${photo.id} on ${siteTitle}`,
+        description: photo.description || '',
+        image: `${origin}/og/${photo.id}`,
+        url: `${origin}/${photo.id}`,
+      })
 
       const serialized = document.documentElement.outerHTML
       return this.createManualHtmlResponse(serialized, headers, 200)
     } catch (error) {
       this.logger.error('Failed to inject Open Graph tags for photo page', { error })
+      return this.createManualHtmlResponse(html, headers, response.status)
+    }
+  }
+
+  async decorateHomepageResponse(context: Context, response: Response): Promise<Response> {
+    const contentType = response.headers.get('content-type') ?? ''
+    if (!contentType.toLowerCase().includes('text/html')) {
+      return response
+    }
+
+    const html = await response.text()
+    const headers = new Headers(response.headers)
+    const siteConfig = await this.siteSettingService.getSiteConfig()
+    const siteTitle = siteConfig.title?.trim() || siteConfig.name || 'Photo Gallery'
+    const origin = this.resolveRequestOrigin(context)
+    if (!origin) {
+      return this.createManualHtmlResponse(html, headers, response.status)
+    }
+
+    try {
+      const document = DOM_PARSER.parseFromString(html, 'text/html') as unknown as StaticAssetDocument
+      this.removeExistingSocialMeta(document)
+      const description = siteConfig.description?.trim() || ''
+      this.insertSocialMetaTags(document, {
+        title: siteTitle,
+        description,
+        image: `${origin}/og`,
+        url: origin,
+      })
+
+      const serialized = document.documentElement.outerHTML
+      return this.createManualHtmlResponse(serialized, headers, 200)
+    } catch (error) {
+      this.logger.error('Failed to inject Open Graph tags for homepage', { error })
       return this.createManualHtmlResponse(html, headers, response.status)
     }
   }
@@ -212,44 +250,37 @@ export class StaticWebService extends StaticAssetService {
     document.title = title
   }
 
-  private insertOpenGraphTags(
+  private insertSocialMetaTags(
     document: StaticAssetDocument,
-    photo: PhotoManifestItem,
-    origin: string,
-    siteTitle: string,
+    data: { title: string; description: string; image: string; url: string },
   ): void {
-    const tags: Record<string, string> = {
+    const ogTags: Record<string, string> = {
       'og:type': 'website',
-      'og:title': `${photo.id} on ${siteTitle}`,
-      'og:description': photo.description || '',
-      'og:image': `${origin}/og/${photo.id}`,
-      'og:url': `${origin}/${photo.id}`,
+      'og:title': data.title,
+      'og:description': data.description,
+      'og:image': data.image,
+      'og:url': data.url,
     }
 
-    for (const [property, content] of Object.entries(tags)) {
-      const element = document.createElement('meta')
-      element.setAttribute('property', property)
-      element.setAttribute('content', content)
-      document.head?.append(element)
+    const twitterTags: Record<string, string> = {
+      'twitter:card': 'summary_large_image',
+      'twitter:title': data.title,
+      'twitter:description': data.description,
+      'twitter:image': data.image,
     }
+
+    this.insertMetaTags(document, ogTags, 'property')
+    this.insertMetaTags(document, twitterTags, 'name')
   }
 
-  private insertTwitterTags(
+  private insertMetaTags(
     document: StaticAssetDocument,
-    photo: PhotoManifestItem,
-    origin: string,
-    siteTitle: string,
+    tags: Record<string, string>,
+    attributeName: 'property' | 'name',
   ): void {
-    const tags: Record<string, string> = {
-      'twitter:card': 'summary_large_image',
-      'twitter:title': `${photo.id} on ${siteTitle}`,
-      'twitter:description': photo.description || '',
-      'twitter:image': `${origin}/og/${photo.id}`,
-    }
-
-    for (const [name, content] of Object.entries(tags)) {
+    for (const [key, content] of Object.entries(tags)) {
       const element = document.createElement('meta')
-      element.setAttribute('name', name)
+      element.setAttribute(attributeName, key)
       element.setAttribute('content', content)
       document.head?.append(element)
     }

@@ -220,11 +220,11 @@ function BaseCanvas({ padding, siteName, children }: BaseCanvasProps) {
       <div
         style={{
           position: 'absolute',
-          bottom: `${padding}px`,
-          right: `${padding}px`,
-          fontSize: '14px',
+          bottom: `32px`,
+          right: `32px`,
+          fontSize: '20px',
           fontWeight: '500',
-          color: 'rgba(255,255,255,0.28)',
+          color: 'rgba(255,255,255,0.68)',
           letterSpacing: '0.5px',
           display: 'flex',
         }}
@@ -539,4 +539,349 @@ function InfoPanel({ title, tags, exifItems, camera, formattedDate, accentColor,
       />
     </div>
   )
+}
+
+// ==================== Homepage OG Template ====================
+
+export interface HomepageOgTemplateProps {
+  siteName: string
+  siteDescription?: string | null
+  authorAvatar?: string | null
+  accentColor?: string
+  stats: {
+    totalPhotos: number
+    uniqueTags: number
+    uniqueCameras: number
+    totalSizeGB?: number | null
+  }
+  featuredPhotos?: Array<{ thumbnailSrc: string | null }> | null
+}
+
+export function HomepageOgTemplate({
+  siteName,
+  siteDescription,
+  authorAvatar,
+  accentColor = '#007bff',
+  stats,
+  featuredPhotos,
+}: HomepageOgTemplateProps) {
+  const hasAvatar = !!authorAvatar
+  const hasFeaturedPhotos = featuredPhotos && featuredPhotos.length > 0
+
+  return (
+    <BaseCanvas padding={0} siteName={siteName}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+        }}
+      >
+        {/* Background photo grid - rendered first so content overlays it */}
+        {hasFeaturedPhotos && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 0,
+              opacity: 0.2,
+            }}
+          >
+            {/* First row */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 0,
+                flex: 1,
+              }}
+            >
+              {featuredPhotos.slice(0, 3).map((photo, index) => (
+                <div
+                  key={index}
+                  style={{
+                    flex: 1,
+                    borderRadius: 0,
+                    overflow: 'hidden',
+                    backgroundColor: '#050505',
+                    position: 'relative',
+                    display: 'flex',
+                  }}
+                >
+                  {photo.thumbnailSrc && (
+                    <img
+                      src={photo.thumbnailSrc}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  )}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 50%)',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Second row */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 0,
+                flex: 1,
+              }}
+            >
+              {featuredPhotos.slice(3, 6).map((photo, index) => (
+                <div
+                  key={index + 3}
+                  style={{
+                    flex: 1,
+                    borderRadius: 0,
+                    overflow: 'hidden',
+                    backgroundColor: '#050505',
+                    position: 'relative',
+                    display: 'flex',
+                  }}
+                >
+                  {photo.thumbnailSrc && (
+                    <img
+                      src={photo.thumbnailSrc}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  )}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 50%)',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Dark overlay for text readability */}
+        {hasFeaturedPhotos && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%)',
+            }}
+          />
+        )}
+
+        {/* Content layer */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: hasAvatar ? '48px' : '0',
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+            padding: '60px',
+          }}
+        >
+          {hasAvatar && (
+            <div
+              style={{
+                display: 'flex',
+                flexShrink: 0,
+              }}
+            >
+              <div
+                style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)',
+                  backgroundColor: '#050505',
+                  display: 'flex',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={authorAvatar}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)',
+                    display: 'flex',
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              flex: 1,
+              height: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+              }}
+            >
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: '56px',
+                  fontWeight: 700,
+                  letterSpacing: '-1px',
+                  lineHeight: 1.2,
+                  color: '#ffffff',
+                }}
+              >
+                {siteName}
+              </h1>
+
+              {siteDescription && (
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '22px',
+                    fontWeight: 400,
+                    lineHeight: 1.4,
+                    color: 'rgba(255,255,255,0.75)',
+                    maxWidth: '700px',
+                  }}
+                >
+                  {siteDescription}
+                </p>
+              )}
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: '32px',
+                flexWrap: 'wrap',
+                marginTop: '8px',
+              }}
+            >
+              <StatItem icon="📸" label="Photos" value={formatNumber(stats.totalPhotos)} />
+              <StatItem icon="🏷️" label="Tags" value={formatNumber(stats.uniqueTags)} />
+              <StatItem icon="📷" label="Cameras" value={formatNumber(stats.uniqueCameras)} />
+              {stats.totalSizeGB !== null && stats.totalSizeGB !== undefined && (
+                <StatItem icon="💾" label="Storage" value={`${stats.totalSizeGB.toFixed(1)} GB`} />
+              )}
+            </div>
+
+            <div
+              style={{
+                width: '120px',
+                height: '4px',
+                background: accentColor,
+                borderRadius: '2px',
+                marginTop: '12px',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </BaseCanvas>
+  )
+}
+
+interface StatItemProps {
+  icon: string
+  label: string
+  value: string
+}
+
+function StatItem({ icon, label, value }: StatItemProps) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          color: 'rgba(255,255,255,0.6)',
+          fontSize: '14px',
+          letterSpacing: '0.3px',
+        }}
+      >
+        <span>{icon}</span>
+        <span>{label}</span>
+      </div>
+      <div
+        style={{
+          fontSize: '28px',
+          fontWeight: 600,
+          color: '#ffffff',
+          letterSpacing: '-0.5px',
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  )
+}
+
+function formatNumber(num: number): string {
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}M`
+  }
+  if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}K`
+  }
+  return num.toString()
 }

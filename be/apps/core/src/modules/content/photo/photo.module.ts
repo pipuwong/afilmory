@@ -6,12 +6,21 @@ import { ManagedStorageModule } from 'core/modules/platform/managed-storage/mana
 
 import { PhotoController } from './assets/photo.controller'
 import { PhotoAssetService } from './assets/photo-asset.service'
+import { PhotoUploadParser } from './assets/photo-upload.parser'
+import { PhotoUploadLimitInterceptor } from './assets/photo-upload-limit.interceptor'
 import { PhotoBuilderService } from './builder/photo-builder.service'
 import { PhotoStorageService } from './storage/photo-storage.service'
 
 @Module({
   imports: [SystemSettingModule, BillingModule, ManagedStorageModule],
   controllers: [PhotoController],
-  providers: [PhotoBuilderService, PhotoStorageService, PhotoAssetService, BuilderConfigService],
+  providers: [
+    PhotoBuilderService,
+    PhotoStorageService,
+    PhotoAssetService,
+    PhotoUploadLimitInterceptor,
+    PhotoUploadParser,
+    BuilderConfigService,
+  ],
 })
 export class PhotoModule {}

@@ -12,8 +12,8 @@ import { injectable } from 'tsyringe'
 import { ManifestService } from '../manifest/manifest.service'
 import geistFontUrl from './assets/Geist-Medium.ttf?url'
 import harmonySansScMediumFontUrl from './assets/HarmonyOS_Sans_SC_Medium.ttf?url'
-import { renderOgImage } from './og.renderer'
-import type { ExifInfo, PhotoDimensions } from './og.template'
+import { renderHomepageOgImage, renderOgImage } from './og.renderer'
+import type { ExifInfo, HomepageOgTemplateProps, PhotoDimensions } from './og.template'
 
 const CACHE_CONTROL = 'public, max-age=31536000, stale-while-revalidate=31536000'
 
@@ -100,6 +100,97 @@ export class OgService implements OnModuleDestroy {
     const body = this.toArrayBuffer(png)
 
     return new Response(body, { status: 200, headers })
+  }
+
+  async renderHomepage(context: Context): Promise<Response> {
+    const manifest = await this.manifestService.getManifest()
+    const siteConfig = await this.siteSettingService.getSiteConfig()
+
+    // Calculate statistics
+    const totalPhotos = manifest.data.length
+    const uniqueTags = new Set<string>()
+    manifest.data.forEach((photo) => {
+      photo.tags?.forEach((tag) => uniqueTags.add(tag))
+    })
+    const uniqueCameras = manifest.cameras.length
+
+    // Resolve author avatar if available
+    let authorAvatar: string | null = null
+    if (siteConfig.author?.avatar) {
+      // Try to fetch and convert to data URL
+      const avatarUrl = await this.resolveAuthorAvatar(context, siteConfig.author.avatar)
+      if (avatarUrl) {
+        authorAvatar = avatarUrl
+      }
+    }
+
+    // Get featured photos (latest 6 photos) for background
+    const featuredPhotos = await Promise.all(
+      manifest.data.slice(0, 6).map(async (photo) => {
+        const thumbnailSrc = await this.resolveThumbnailSrc(context, photo)
+        return { thumbnailSrc }
+      }),
+    )
+
+    const templateProps: HomepageOgTemplateProps = {
+      siteName: siteConfig.name || siteConfig.title || 'Photo Gallery',
+      siteDescription: siteConfig.description || null,
+      authorAvatar,
+      accentColor: siteConfig.accentColor,
+      stats: {
+        totalPhotos,
+        uniqueTags: uniqueTags.size,
+        uniqueCameras,
+        totalSizeGB: null, // Can be added later if needed
+      },
+      featuredPhotos: featuredPhotos.length > 0 ? featuredPhotos : null,
+    }
+
+    const png = await renderHomepageOgImage({
+      template: templateProps,
+      fonts: await this.getFontConfig(),
+    })
+
+    const headers = new Headers({
+      'content-type': 'image/png',
+      'cache-control': CACHE_CONTROL,
+      'cloudflare-cdn-cache-control': CACHE_CONTROL,
+    })
+
+    const body = this.toArrayBuffer(png)
+
+    return new Response(body, { status: 200, headers })
+  }
+
+  private async resolveAuthorAvatar(context: Context, avatarUrl: string): Promise<string | null> {
+    // If it's already a data URL, return as is
+    if (avatarUrl.startsWith('data:')) {
+      return avatarUrl
+    }
+
+    // Try to fetch and convert to data URL
+    try {
+      const fetched = await this.tryFetchUrl(avatarUrl)
+      if (fetched) {
+        return this.bufferToDataUrl(fetched.buffer, fetched.contentType)
+      }
+
+      // If direct fetch failed, try with context base URL
+      const base = this.resolveBaseUrl(context)
+      if (base && !avatarUrl.startsWith('http://') && !avatarUrl.startsWith('https://')) {
+        const normalizedPath = avatarUrl.startsWith('/') ? avatarUrl : `/${avatarUrl}`
+        const fullUrl = new URL(normalizedPath, base).toString()
+        const fetched2 = await this.tryFetchUrl(fullUrl)
+        if (fetched2) {
+          return this.bufferToDataUrl(fetched2.buffer, fetched2.contentType)
+        }
+      }
+
+      // If all fails, return the original URL (satori might be able to handle it)
+      return avatarUrl
+    } catch {
+      return avatarUrl
+    }
   }
 
   private geistFontPromise: Promise<NonSharedBuffer> | null = null

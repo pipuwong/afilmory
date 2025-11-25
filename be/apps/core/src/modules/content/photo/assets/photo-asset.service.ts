@@ -8,6 +8,7 @@ import {
 } from '@afilmory/builder/plugins/thumbnail-storage/shared.js'
 import { StorageManager } from '@afilmory/builder/storage/index.js'
 import type { GitHubConfig, ManagedStorageConfig, S3CompatibleConfig } from '@afilmory/builder/storage/interfaces.js'
+import type { PhotoAssetManifest } from '@afilmory/db'
 import { CURRENT_PHOTO_MANIFEST_VERSION, DATABASE_ONLY_PROVIDER, photoAssets } from '@afilmory/db'
 import { EventEmitterService } from '@afilmory/framework'
 import { DbAccessor } from 'core/database/database.provider'
@@ -33,13 +34,7 @@ import { injectable } from 'tsyringe'
 import { PhotoBuilderService } from '../builder/photo-builder.service'
 import { PhotoStorageService } from '../storage/photo-storage.service'
 import { TransactionalStorageManager } from '../storage/transactional-storage.manager'
-import type {
-  PhotoAssetListItem,
-  PhotoAssetManifest,
-  PhotoAssetRecord,
-  PhotoAssetSummary,
-  UploadAssetInput,
-} from './photo-asset.types'
+import type { PhotoAssetListItem, PhotoAssetRecord, PhotoAssetSummary, UploadAssetInput } from './photo-asset.types'
 import { inferContentTypeFromKey } from './storage.utils'
 
 const DEFAULT_THUMBNAIL_EXTENSION = {
