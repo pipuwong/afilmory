@@ -3,7 +3,6 @@ import { createHmac, timingSafeEqual } from 'node:crypto'
 export interface GatewayStatePayload {
   innerState: string
   tenantSlug: string | null
-  targetHost?: string | null
   issuedAt: number
   expiresAt: number
 }
@@ -12,7 +11,7 @@ export interface EncodeGatewayStateOptions {
   secret: string
   tenantSlug: string | null
   innerState: string
-  targetHost?: string | null
+
   ttlMs?: number
 }
 
@@ -50,12 +49,11 @@ function safeCompare(a: string, b: string): boolean {
  * route the callback without hard-coding tenant slugs in redirect URIs.
  */
 export function encodeGatewayState(options: EncodeGatewayStateOptions): string {
-  const { secret, tenantSlug, innerState, targetHost, ttlMs = DEFAULT_TTL_MS } = options
+  const { secret, tenantSlug, innerState, ttlMs = DEFAULT_TTL_MS } = options
   const now = Date.now()
   const payload: GatewayStatePayload = {
     innerState,
     tenantSlug,
-    targetHost: targetHost ?? null,
     issuedAt: now,
     expiresAt: now + ttlMs,
   }

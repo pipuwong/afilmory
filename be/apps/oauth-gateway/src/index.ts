@@ -3,7 +3,7 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 
 import { gatewayConfig } from './config'
-import { buildForwardLocation, resolveTargetHost, sanitizeExplicitHost, sanitizeTenantSlug } from './resolver'
+import { buildForwardLocation, resolveTargetHost, sanitizeTenantSlug } from './resolver'
 
 const app = new Hono()
 
@@ -43,7 +43,6 @@ callbackRouter.all('/:provider', (c) => {
 
   const targetHost = resolveTargetHost(gatewayConfig, {
     tenantSlug,
-    explicitHost: sanitizeExplicitHost(decodedState?.targetHost),
   })
   if (!targetHost) {
     return c.json({ error: 'unresolvable_host', message: 'Unable to resolve target tenant host.' }, 400)

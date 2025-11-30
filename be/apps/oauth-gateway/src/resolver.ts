@@ -2,7 +2,6 @@ import type { GatewayConfig } from './config'
 
 export interface TargetResolutionInput {
   tenantSlug?: string | null
-  explicitHost?: string | null
 }
 
 const SLUG_PATTERN = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i
@@ -39,10 +38,6 @@ export function sanitizeExplicitHost(host: string | null | undefined): string | 
 }
 
 export function resolveTargetHost(config: GatewayConfig, input: TargetResolutionInput): string | null {
-  if (input.explicitHost) {
-    return input.explicitHost
-  }
-
   const slug = input.tenantSlug
   if (slug && slug !== config.rootSlug) {
     return `${slug}.${config.baseDomain}`
