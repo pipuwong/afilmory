@@ -162,6 +162,15 @@ export class AuthController {
   }
 
   @AllowPlaceholderTenant()
+  @Post('/sign-out')
+  @SkipTenantGuard()
+  async signOut(@ContextParam() context: Context) {
+    const auth = await this.auth.getAuth()
+    const { headers } = context.req.raw
+    return await auth.api.signOut({ headers, asResponse: true })
+  }
+
+  @AllowPlaceholderTenant()
   @Get('/social/providers')
   @BypassResponseTransform()
   @SkipTenantGuard()

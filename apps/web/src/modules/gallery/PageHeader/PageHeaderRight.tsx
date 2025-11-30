@@ -5,7 +5,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@afilmory/ui'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -251,7 +251,24 @@ const UserMenuButton = ({
   user: { id: string; name?: string | null; image?: string | null; role?: string | null }
 }) => {
   const { t } = useTranslation()
+  const setSessionUser = useSetAtom(sessionUserAtom)
+  const queryClient = useQueryClient()
+  const [isSigningOut, setIsSigningOut] = useState(false)
   const isAdmin = user.role === 'admin' || user.role === 'superadmin'
+
+  const handleSignOut = async () => {
+    if (isSigningOut) return
+    setIsSigningOut(true)
+    try {
+      await authApi.signOut()
+      setSessionUser(null)
+      await queryClient.invalidateQueries({ queryKey: ['session'] })
+    } catch (error) {
+      console.error('Sign out failed:', error)
+    } finally {
+      setIsSigningOut(false)
+    }
+  }
 
   // 如果是 admin，点击头像直接导航到 dashboard
   if (isAdmin) {
@@ -285,11 +302,9 @@ const UserMenuButton = ({
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => {
-            // TODO: Implement sign out
-            window.location.reload()
-          }}
+          onClick={handleSignOut}
           icon={<i className="i-lucide-log-out text-base" />}
+          disabled={isSigningOut}
         >
           {t('action.signOut')}
         </DropdownMenuItem>

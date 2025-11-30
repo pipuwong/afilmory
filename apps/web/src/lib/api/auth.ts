@@ -28,6 +28,11 @@ export const authApi = {
   async getSession(): Promise<SessionPayload | null> {
     return await apiFetch<SessionPayload | null>('/api/auth/session')
   },
+  async signOut(): Promise<void> {
+    await apiFetch('/api/auth/sign-out', {
+      method: 'POST',
+    })
+  },
   async getSocialProviders(): Promise<SocialProvidersResponse> {
     return await apiFetch<SocialProvidersResponse>('/api/auth/social/providers')
   },
