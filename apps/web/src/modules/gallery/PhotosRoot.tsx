@@ -1,13 +1,16 @@
 import { useScrollViewElement } from '@afilmory/ui'
+import clsx from 'clsx'
 import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 
 import { gallerySettingAtom } from '~/atoms/app'
+import { useHasActiveFilters } from '~/hooks/useHasActiveFilters'
 import { useContextPhotos } from '~/hooks/usePhotoViewer'
 import { useVisiblePhotosDateRange } from '~/hooks/useVisiblePhotosDateRange'
 
 import type { PanelType } from './ActionPanel'
 import { ActionPanel } from './ActionPanel'
+import { ActiveFiltersHero } from './ActiveFiltersHero'
 import { ListView } from './ListView'
 import { MasonryView } from './MasonryView'
 import { PageHeader } from './PageHeader'
@@ -37,6 +40,8 @@ export const PhotosRoot = () => {
     }
   }, [scrollElement])
 
+  const hasActiveFilters = useHasActiveFilters()
+
   return (
     <>
       <PageHeader
@@ -45,7 +50,9 @@ export const PhotosRoot = () => {
         showDateRange={showFloatingActions && !!dateRange.formattedRange}
       />
 
-      <div className="mt-12 p-1 **:select-none! lg:px-0 lg:pb-0">
+      {hasActiveFilters && <ActiveFiltersHero />}
+
+      <div className={clsx('p-1 **:select-none! lg:px-0 lg:pb-0', !hasActiveFilters && 'mt-12')}>
         {viewMode === 'list' ? <ListView photos={photos} /> : <MasonryView photos={photos} onRender={handleRender} />}
       </div>
 
