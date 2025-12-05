@@ -172,11 +172,16 @@ function PlanCard({
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
   const productId = plan.payment?.creemProductId ?? null
+  const hasPortalAccount = Boolean(creemCustomerId)
+  const isFreePlan = plan.planId === 'free'
+  const hasProduct = Boolean(productId)
   const locale = i18n.language ?? i18n.resolvedLanguage ?? 'en'
   const quotaNumberFormatter = useMemo(() => new Intl.NumberFormat(locale), [locale])
 
   const canCheckout = Boolean(!isCurrent && tenantId && productId)
-
+  const showCheckoutButton = !isCurrent && hasProduct
+  const showDowngradeButton = !isCurrent && isFreePlan && hasPortalAccount
+  const showComingSoon = !isCurrent && !isFreePlan && !hasProduct
   const showPortalButton = isCurrent && plan.planId !== 'free' && Boolean(productId && creemCustomerId)
   const formatQuotaValue = (value: number | null, unitKey: I18nKeys | null) => {
     if (value === null || value === undefined) {
@@ -222,7 +227,7 @@ function PlanCard({
   }
 
   const handlePortal = async () => {
-    if (!showPortalButton || !creemCustomerId) {
+    if (!(showPortalButton || showDowngradeButton) || !creemCustomerId) {
       toast.error(t(planI18nKeys.toastMissingPortalAccount))
       return
     }
@@ -274,7 +279,7 @@ function PlanCard({
         ))}
       </ul>
 
-      {!isCurrent && (
+      {showCheckoutButton && (
         <Button
           type="button"
           className="mt-4 w-full"
@@ -283,6 +288,25 @@ function PlanCard({
           onClick={handleCheckout}
         >
           {checkoutLoading ? t(planI18nKeys.checkoutLoading) : t(planI18nKeys.checkoutUpgrade)}
+        </Button>
+      )}
+
+      {showDowngradeButton && (
+        <Button
+          type="button"
+          variant="secondary"
+          className="mt-4 w-full"
+          size="sm"
+          disabled={portalLoading}
+          onClick={handlePortal}
+        >
+          {portalLoading ? t(planI18nKeys.portalLoading) : t(planI18nKeys.portalManage)}
+        </Button>
+      )}
+
+      {showComingSoon && (
+        <Button type="button" className="mt-4 w-full" size="sm" disabled>
+          {t(planI18nKeys.checkoutComingSoon)}
         </Button>
       )}
 

@@ -18,7 +18,7 @@ export const BILLING_PLAN_DEFINITIONS: Record<BillingPlanId, BillingPlanDefiniti
   pro: {
     id: 'pro',
     name: 'Pro',
-    description: '专业方案，预留给即将上线的订阅。',
+    description: '专业方案',
     includedStorageBytes: 0,
     quotas: {
       monthlyAssetProcessLimit: 1000,
