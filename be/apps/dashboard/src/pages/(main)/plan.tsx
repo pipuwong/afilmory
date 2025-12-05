@@ -282,11 +282,7 @@ function PlanCard({
           disabled={!canCheckout || checkoutLoading}
           onClick={handleCheckout}
         >
-          {checkoutLoading
-            ? t(planI18nKeys.checkoutLoading)
-            : canCheckout
-              ? t(planI18nKeys.checkoutUpgrade)
-              : t(planI18nKeys.checkoutComingSoon)}
+          {checkoutLoading ? t(planI18nKeys.checkoutLoading) : t(planI18nKeys.checkoutUpgrade)}
         </Button>
       )}
 

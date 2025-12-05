@@ -14,7 +14,7 @@ import {
   Textarea,
 } from '@afilmory/ui'
 import { clsxm, Spring } from '@afilmory/utils'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import { Edit, Plus, PlusCircle, Save } from 'lucide-react'
 import { m } from 'motion/react'
 import { nanoid } from 'nanoid'
 import { useEffect, useMemo, useState } from 'react'
@@ -106,7 +106,7 @@ export function ProviderEditModal({
               isNewProvider ? 'bg-accent/10 text-accent' : 'bg-fill text-text',
             )}
           >
-            <DynamicIcon name={isNewProvider ? 'plus-circle' : 'edit'} className="size-5" />
+            {isNewProvider ? <PlusCircle className="size-5" /> : <Edit className="size-5" />}
           </div>
           <div className="flex-1 space-y-1">
             <h2 className="text-text text-xl font-semibold">
@@ -248,7 +248,7 @@ export function ProviderEditModal({
               {t(storageProvidersI18nKeys.actions.cancel)}
             </Button>
             <Button type="button" onClick={handleSave} variant="primary" size="sm">
-              <DynamicIcon name="plus" className="mr-2 h-3.5 w-3.5" />
+              <Plus className="mr-2 h-3.5 w-3.5" />
               <span>{t(storageProvidersI18nKeys.actions.create)}</span>
             </Button>
           </div>
@@ -256,7 +256,7 @@ export function ProviderEditModal({
           // Edit mode: Delete + cancel + set active + save
           <div className="flex items-center justify-end gap-3">
             <Button type="button" onClick={handleSave} disabled={!isDirty} variant="primary" size="sm">
-              <DynamicIcon name="save" className="mr-2 h-3.5 w-3.5" />
+              <Save className="mr-2 h-3.5 w-3.5" />
               <span>{t(storageProvidersI18nKeys.actions.save)}</span>
             </Button>
           </div>
@@ -264,6 +264,14 @@ export function ProviderEditModal({
       </div>
     </div>
   )
+}
+
+// Configure modal content
+ProviderEditModal.contentClassName = 'max-w-2xl w-[95vw] max-h-[90vh] p-0'
+ProviderEditModal.contentProps = {
+  style: {
+    maxHeight: '90vh',
+  },
 }
 
 // Configure modal content

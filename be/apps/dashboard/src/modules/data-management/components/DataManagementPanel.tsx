@@ -1,6 +1,6 @@
 import { Button, Prompt } from '@afilmory/ui'
 import { clsxm } from '@afilmory/utils'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import { DatabaseIcon, RadiationIcon, TriangleAlertIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
@@ -220,8 +220,8 @@ export function DataManagementPanel() {
       <LinearBorderPanel className="bg-background-secondary/40 p-4 sm:p-6">
         <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-3 sm:space-y-4">
-            <span className="shape-squircle inline-flex items-center gap-2 bg-accent/10 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-medium text-accent">
-              <DynamicIcon name="database" className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+            <span className="inline-flex items-center gap-2 text-sm sm:text-xs font-semibold text-accent">
+              <DatabaseIcon className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
               {t(dataManagementKeys.summary.badge)}
             </span>
             <div className="space-y-1.5 sm:space-y-2">
@@ -260,7 +260,7 @@ export function DataManagementPanel() {
         <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1.5 sm:space-y-2">
             <div className="flex items-center gap-1.5 sm:gap-2 text-red">
-              <DynamicIcon name="triangle-alert" className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+              <TriangleAlertIcon className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
               <span className="text-xs sm:text-sm font-semibold">{t(dataManagementKeys.truncate.badge)}</span>
             </div>
             <div>
@@ -287,7 +287,7 @@ export function DataManagementPanel() {
         <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1.5 sm:space-y-2">
             <div className="flex items-center gap-1.5 sm:gap-2 text-red">
-              <DynamicIcon name="radiation" className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+              <RadiationIcon className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
               <span className="text-xs sm:text-sm font-semibold">{t(dataManagementKeys.delete.badge)}</span>
             </div>
             <div className="space-y-1">

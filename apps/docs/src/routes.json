@@ -28,7 +28,7 @@
       "title": "Quick Start",
       "description": "Get your gallery running in about 5 minutes.",
       "createdAt": "2025-11-14T22:20:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "2"
     }
   },
@@ -94,7 +94,7 @@
       "title": "Storage Providers",
       "description": "Choose a storage provider for your photo collection.",
       "createdAt": "2025-11-14T22:40:00+08:00",
-      "lastModified": "2025-11-24T10:15:00+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "30"
     }
   },
@@ -105,30 +105,8 @@
       "title": "S3 / S3-Compatible",
       "description": "Configure S3 or S3-compatible storage for your photo collection.",
       "createdAt": "2025-11-14T22:10:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "32"
-    }
-  },
-  {
-    "path": "/storage/providers/oss",
-    "title": "Aliyun OSS",
-    "meta": {
-      "title": "Aliyun OSS",
-      "description": "Configure Aliyun Object Storage Service (OSS) for China-mainland friendly deployments.",
-      "createdAt": "2025-11-24T10:05:00+08:00",
-      "lastModified": "2025-11-24T10:05:00+08:00",
-      "order": "37"
-    }
-  },
-  {
-    "path": "/storage/providers/cos",
-    "title": "Tencent COS",
-    "meta": {
-      "title": "Tencent COS",
-      "description": "Configure Tencent Cloud Object Storage (COS) for deployments within the Tencent ecosystem.",
-      "createdAt": "2025-11-24T10:06:00+08:00",
-      "lastModified": "2025-11-24T10:06:00+08:00",
-      "order": "38"
     }
   },
   {
@@ -138,7 +116,7 @@
       "title": "B2 (Backblaze B2)",
       "description": "Configure Backblaze B2 storage for cost-effective cloud storage.",
       "createdAt": "2025-11-14T22:10:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "33"
     }
   },
@@ -149,7 +127,7 @@
       "title": "GitHub Storage",
       "description": "Use a GitHub repository as photo storage for simple deployments.",
       "createdAt": "2025-11-14T22:10:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "34"
     }
   },
@@ -160,7 +138,7 @@
       "title": "Local Storage",
       "description": "Use local file system paths for development and self-hosting.",
       "createdAt": "2025-11-14T22:10:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "35"
     }
   },
@@ -171,7 +149,7 @@
       "title": "SaaS Architecture",
       "description": "Tenant model, domain routing, OAuth flow, and data injection paths.",
       "createdAt": "2025-11-23T20:20:00+08:00",
-      "lastModified": "2025-11-23T20:44:02+08:00",
+      "lastModified": "2025-11-30T14:03:05+08:00",
       "order": "36"
     }
   },
@@ -182,7 +160,7 @@
       "title": "Eagle Storage",
       "description": "Publish directly from an Eagle 4 library with filtering support.",
       "createdAt": "2025-11-14T22:10:00+08:00",
-      "lastModified": "2025-11-23T19:40:52+08:00",
+      "lastModified": "2025-12-05T15:28:22+08:00",
       "order": "36"
     }
   },
@@ -195,6 +173,28 @@
       "createdAt": "2025-11-23T19:50:00+08:00",
       "lastModified": "2025-11-23T20:44:02+08:00",
       "order": "37"
+    }
+  },
+  {
+    "path": "/storage/providers/oss",
+    "title": "Aliyun OSS",
+    "meta": {
+      "title": "Aliyun OSS",
+      "description": "Configure Aliyun Object Storage Service (OSS) for China-mainland friendly deployments.",
+      "createdAt": "2025-11-24T10:05:00+08:00",
+      "lastModified": "2025-11-24T22:26:48+08:00",
+      "order": "37"
+    }
+  },
+  {
+    "path": "/storage/providers/cos",
+    "title": "Tencent COS",
+    "meta": {
+      "title": "Tencent COS",
+      "description": "Configure Tencent Cloud Object Storage (COS) for deployments within the Tencent ecosystem.",
+      "createdAt": "2025-11-24T10:06:00+08:00",
+      "lastModified": "2025-11-24T22:26:48+08:00",
+      "order": "38"
     }
   },
   {

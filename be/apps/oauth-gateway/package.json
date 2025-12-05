@@ -19,7 +19,7 @@
     "@types/node": "^24.10.1",
     "nodemon": "3.1.11",
     "typescript": "catalog:",
-    "vite": "7.2.6",
+    "vite": "8.0.0-beta.0",
     "vite-node": "5.2.0"
   }
 }

@@ -6,28 +6,28 @@ import Route3 from '../contents/architecture.mdx'
 import Route7 from '../contents/builder/built-ins.mdx'
 import Route1 from '../contents/builder/cli.mdx'
 import Route4 from '../contents/builder/config.mdx'
-import Route16 from '../contents/builder/index.mdx'
+import Route18 from '../contents/builder/index.mdx'
 import Route5 from '../contents/builder/pipeline.mdx'
 import Route6 from '../contents/builder/plugins.mdx'
-import Route20 from '../contents/deployment/cloudflare-pages.mdx'
-import Route18 from '../contents/deployment/docker.mdx'
-import Route19 from '../contents/deployment/github-pages.mdx'
-import Route17 from '../contents/deployment/index.mdx'
-import Route21 from '../contents/deployment/vercel.mdx'
-import Route24 from '../contents/docs-site.mdx'
+import Route22 from '../contents/deployment/cloudflare-pages.mdx'
+import Route20 from '../contents/deployment/docker.mdx'
+import Route21 from '../contents/deployment/github-pages.mdx'
+import Route19 from '../contents/deployment/index.mdx'
+import Route23 from '../contents/deployment/vercel.mdx'
+import Route26 from '../contents/docs-site.mdx'
 import Route2 from '../contents/getting-started/quick-start.mdx'
 import Route0 from '../contents/index.mdx'
 import Route13 from '../contents/saas/architecture.mdx'
-import Route23 from '../contents/saas/cms.mdx'
+import Route25 from '../contents/saas/cms.mdx'
 import Route15 from '../contents/saas/deployment.mdx'
-import Route22 from '../contents/saas/index.mdx'
+import Route24 from '../contents/saas/index.mdx'
 import Route10 from '../contents/storage/providers/b2.mdx'
-import Route26 from '../contents/storage/providers/cos.mdx'
+import Route17 from '../contents/storage/providers/cos.mdx'
 import Route14 from '../contents/storage/providers/eagle.mdx'
 import Route11 from '../contents/storage/providers/github.mdx'
 import Route8 from '../contents/storage/providers/index.mdx'
 import Route12 from '../contents/storage/providers/local.mdx'
-import Route25 from '../contents/storage/providers/oss.mdx'
+import Route16 from '../contents/storage/providers/oss.mdx'
 import Route9 from '../contents/storage/providers/s3.mdx'
 
 export interface RouteConfig {
@@ -70,7 +70,7 @@ export const routes: RouteConfig[] = [
       title: 'Quick Start',
       description: 'Get your gallery running in about 5 minutes.',
       createdAt: '2025-11-14T22:20:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '2',
     },
   },
@@ -142,7 +142,7 @@ export const routes: RouteConfig[] = [
       title: 'Storage Providers',
       description: 'Choose a storage provider for your photo collection.',
       createdAt: '2025-11-14T22:40:00+08:00',
-      lastModified: '2025-11-24T10:15:00+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '30',
     },
   },
@@ -154,32 +154,8 @@ export const routes: RouteConfig[] = [
       title: 'S3 / S3-Compatible',
       description: 'Configure S3 or S3-compatible storage for your photo collection.',
       createdAt: '2025-11-14T22:10:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '32',
-    },
-  },
-  {
-    path: '/storage/providers/oss',
-    component: Route25,
-    title: 'Aliyun OSS',
-    meta: {
-      title: 'Aliyun OSS',
-      description: 'Configure Aliyun Object Storage Service (OSS) for China-mainland friendly deployments.',
-      createdAt: '2025-11-24T10:05:00+08:00',
-      lastModified: '2025-11-24T10:05:00+08:00',
-      order: '37',
-    },
-  },
-  {
-    path: '/storage/providers/cos',
-    component: Route26,
-    title: 'Tencent COS',
-    meta: {
-      title: 'Tencent COS',
-      description: 'Configure Tencent Cloud Object Storage (COS) for deployments within the Tencent ecosystem.',
-      createdAt: '2025-11-24T10:06:00+08:00',
-      lastModified: '2025-11-24T10:06:00+08:00',
-      order: '38',
     },
   },
   {
@@ -190,7 +166,7 @@ export const routes: RouteConfig[] = [
       title: 'B2 (Backblaze B2)',
       description: 'Configure Backblaze B2 storage for cost-effective cloud storage.',
       createdAt: '2025-11-14T22:10:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '33',
     },
   },
@@ -202,7 +178,7 @@ export const routes: RouteConfig[] = [
       title: 'GitHub Storage',
       description: 'Use a GitHub repository as photo storage for simple deployments.',
       createdAt: '2025-11-14T22:10:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '34',
     },
   },
@@ -214,7 +190,7 @@ export const routes: RouteConfig[] = [
       title: 'Local Storage',
       description: 'Use local file system paths for development and self-hosting.',
       createdAt: '2025-11-14T22:10:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '35',
     },
   },
@@ -226,7 +202,7 @@ export const routes: RouteConfig[] = [
       title: 'SaaS Architecture',
       description: 'Tenant model, domain routing, OAuth flow, and data injection paths.',
       createdAt: '2025-11-23T20:20:00+08:00',
-      lastModified: '2025-11-23T20:44:02+08:00',
+      lastModified: '2025-11-30T14:03:05+08:00',
       order: '36',
     },
   },
@@ -238,7 +214,7 @@ export const routes: RouteConfig[] = [
       title: 'Eagle Storage',
       description: 'Publish directly from an Eagle 4 library with filtering support.',
       createdAt: '2025-11-14T22:10:00+08:00',
-      lastModified: '2025-11-23T19:40:52+08:00',
+      lastModified: '2025-12-05T15:28:22+08:00',
       order: '36',
     },
   },
@@ -255,8 +231,32 @@ export const routes: RouteConfig[] = [
     },
   },
   {
-    path: '/builder',
+    path: '/storage/providers/oss',
     component: Route16,
+    title: 'Aliyun OSS',
+    meta: {
+      title: 'Aliyun OSS',
+      description: 'Configure Aliyun Object Storage Service (OSS) for China-mainland friendly deployments.',
+      createdAt: '2025-11-24T10:05:00+08:00',
+      lastModified: '2025-11-24T22:26:48+08:00',
+      order: '37',
+    },
+  },
+  {
+    path: '/storage/providers/cos',
+    component: Route17,
+    title: 'Tencent COS',
+    meta: {
+      title: 'Tencent COS',
+      description: 'Configure Tencent Cloud Object Storage (COS) for deployments within the Tencent ecosystem.',
+      createdAt: '2025-11-24T10:06:00+08:00',
+      lastModified: '2025-11-24T22:26:48+08:00',
+      order: '38',
+    },
+  },
+  {
+    path: '/builder',
+    component: Route18,
     title: 'Builder',
     meta: {
       title: 'Builder',
@@ -268,7 +268,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/deployment',
-    component: Route17,
+    component: Route19,
     title: 'Deployment',
     meta: {
       title: 'Deployment',
@@ -280,7 +280,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/deployment/docker',
-    component: Route18,
+    component: Route20,
     title: 'Docker',
     meta: {
       title: 'Docker',
@@ -292,7 +292,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/deployment/github-pages',
-    component: Route19,
+    component: Route21,
     title: 'GitHub Pages',
     meta: {
       title: 'GitHub Pages',
@@ -304,7 +304,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/deployment/cloudflare-pages',
-    component: Route20,
+    component: Route22,
     title: 'Cloudflare Pages',
     meta: {
       title: 'Cloudflare Pages',
@@ -316,7 +316,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/deployment/vercel',
-    component: Route21,
+    component: Route23,
     title: 'Vercel',
     meta: {
       title: 'Vercel',
@@ -328,7 +328,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/saas',
-    component: Route22,
+    component: Route24,
     title: 'SaaS Mode',
     meta: {
       title: 'SaaS Mode',
@@ -340,7 +340,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/saas/cms',
-    component: Route23,
+    component: Route25,
     title: 'CMS & Live Updates',
     meta: {
       title: 'CMS & Live Updates',
@@ -352,7 +352,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/docs-site',
-    component: Route24,
+    component: Route26,
     title: 'Docs Site',
     meta: {
       title: 'Docs Site',

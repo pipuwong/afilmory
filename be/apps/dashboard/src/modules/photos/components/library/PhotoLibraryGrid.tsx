@@ -10,7 +10,22 @@ import {
 } from '@afilmory/ui'
 import { clsxm } from '@afilmory/utils'
 import { useAtomValue } from 'jotai'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import {
+  ArrowDown,
+  ArrowUp,
+  Camera,
+  Check,
+  ChevronDown,
+  Clock,
+  ExternalLink,
+  HardDrive,
+  Info,
+  MoreHorizontal,
+  Square,
+  Tags,
+  Trash2,
+  Upload,
+} from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,15 +46,15 @@ import type { DeleteAssetOptions } from './types'
 type PhotoLibrarySortBy = 'uploadedAt' | 'capturedAt'
 type PhotoLibrarySortOrder = 'desc' | 'asc'
 
-const SORT_BY_OPTIONS: { value: PhotoLibrarySortBy; labelKey: I18nKeys; icon: string }[] = [
-  { value: 'uploadedAt', labelKey: 'photos.library.sort.by-uploaded', icon: 'upload' },
-  { value: 'capturedAt', labelKey: 'photos.library.sort.by-captured', icon: 'camera' },
-]
+const SORT_BY_OPTIONS = [
+  { value: 'uploadedAt', labelKey: 'photos.library.sort.by-uploaded', Icon: Upload },
+  { value: 'capturedAt', labelKey: 'photos.library.sort.by-captured', Icon: Camera },
+] as const
 
-const SORT_ORDER_OPTIONS: { value: PhotoLibrarySortOrder; labelKey: I18nKeys; icon: string }[] = [
-  { value: 'desc', labelKey: 'photos.library.sort.order-desc', icon: 'arrow-down' },
-  { value: 'asc', labelKey: 'photos.library.sort.order-asc', icon: 'arrow-up' },
-]
+const SORT_ORDER_OPTIONS = [
+  { value: 'desc', labelKey: 'photos.library.sort.order-desc', Icon: ArrowDown },
+  { value: 'asc', labelKey: 'photos.library.sort.order-asc', Icon: ArrowUp },
+] as const
 
 const photoLibraryGridKeys = {
   card: {
@@ -185,7 +200,7 @@ function PhotoGridItem({
               isSelected ? 'bg-accent text-white' : 'hover:bg-white/10',
             )}
           >
-            <DynamicIcon name={isSelected ? 'check' : 'square'} className="mr-1 h-3 w-3" />
+            {isSelected ? <Check className="mr-1 h-3 w-3" /> : <Square className="mr-1 h-3 w-3" />}
             <span>{isSelected ? t(photoLibraryGridKeys.card.selected) : t(photoLibraryGridKeys.card.select)}</span>
           </div>
         </div>
@@ -193,15 +208,15 @@ function PhotoGridItem({
         <div className="flex items-end justify-between gap-3 p-3">
           <div className="flex flex-col gap-1.5 min-w-0 flex-1">
             <div className="flex items-center gap-1.5 text-[10px] text-white/80">
-              <DynamicIcon name="camera" className="h-3 w-3 shrink-0 text-white/60" />
+              <Camera className="h-3 w-3 shrink-0 text-white/60" />
               <span className="truncate">{deviceLabel}</span>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] text-white/80">
-              <DynamicIcon name="clock" className="h-3 w-3 shrink-0 text-white/60" />
+              <Clock className="h-3 w-3 shrink-0 text-white/60" />
               <span className="truncate">{updatedAtLabel}</span>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] text-white/80">
-              <DynamicIcon name="hard-drive" className="h-3 w-3 shrink-0 text-white/60" />
+              <HardDrive className="h-3 w-3 shrink-0 text-white/60" />
               <span className="truncate">{fileSizeLabel}</span>
             </div>
           </div>
@@ -213,7 +228,7 @@ function PhotoGridItem({
               className="bg-black/40 text-white hover:bg-black/60 h-7 px-2.5"
               onClick={() => onOpenAsset(asset)}
             >
-              <DynamicIcon name="external-link" className="h-3.5 w-3.5" />
+              <ExternalLink className="h-3.5 w-3.5" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -223,26 +238,19 @@ function PhotoGridItem({
                   size="xs"
                   className="bg-black/40 text-white hover:bg-black/60 h-7 px-2.5"
                 >
-                  <DynamicIcon name="more-horizontal" className="h-3.5 w-3.5" />
+                  <MoreHorizontal className="h-3.5 w-3.5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-[140px]">
-                <DropdownMenuItem
-                  icon={<DynamicIcon name="tags" className="size-4" />}
-                  onSelect={() => onEditTags(asset)}
-                >
+                <DropdownMenuItem icon={<Tags className="size-4" />} onSelect={() => onEditTags(asset)}>
                   {t('photos.library.card.edit-tags')}
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  icon={<DynamicIcon name="info" className="size-4" />}
-                  disabled={!manifest}
-                  onSelect={handleViewExif}
-                >
+                <DropdownMenuItem icon={<Info className="size-4" />} disabled={!manifest} onSelect={handleViewExif}>
                   {t('photos.library.card.view-exif')}
                 </DropdownMenuItem>
                 <div className="h-[0.5px] bg-border my-1" />
                 <DropdownMenuItem
-                  icon={<DynamicIcon name="trash-2" className="size-4" />}
+                  icon={<Trash2 className="size-4" />}
                   disabled={isDeleting}
                   onSelect={handleDelete}
                   className="text-red focus:text-red focus:bg-red/10"
@@ -354,9 +362,9 @@ export function PhotoLibraryGrid() {
               size="sm"
               className="hover:bg-background-secondary/70 flex items-center gap-1.5 rounded-full border px-3 h-8 text-text"
             >
-              <DynamicIcon name={currentSortBy.icon as any} className="size-4" />
+              <currentSortBy.Icon className="size-4" />
               <span className="font-medium">{t(currentSortBy.labelKey)}</span>
-              <DynamicIcon name="chevron-down" className="h-3 w-3 text-text-tertiary" />
+              <ChevronDown className="h-3 w-3 text-text-tertiary" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="min-w-[180px]">
@@ -364,7 +372,7 @@ export function PhotoLibraryGrid() {
               <DropdownMenuItem
                 key={option.value}
                 active={option.value === sortBy}
-                icon={<DynamicIcon name={option.icon as any} className="size-4" />}
+                icon={<option.Icon className="size-4" />}
                 onSelect={() => setSortBy(option.value)}
               >
                 {t(option.labelKey)}
@@ -381,9 +389,9 @@ export function PhotoLibraryGrid() {
               size="sm"
               className="hover:bg-background-secondary/70 flex items-center gap-1.5 rounded-full border px-3 h-8 text-text"
             >
-              <DynamicIcon name={currentSortOrder.icon as any} className="size-4" />
+              <currentSortOrder.Icon className="size-4" />
               <span className="font-medium">{t(currentSortOrder.labelKey)}</span>
-              <DynamicIcon name="chevron-down" className="h-3 w-3 text-text-tertiary" />
+              <ChevronDown className="h-3 w-3 text-text-tertiary" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="min-w-[180px]">
@@ -391,7 +399,7 @@ export function PhotoLibraryGrid() {
               <DropdownMenuItem
                 key={option.value}
                 active={option.value === sortOrder}
-                icon={<DynamicIcon name={option.icon as any} className="size-4" />}
+                icon={<option.Icon className="size-4" />}
                 onSelect={() => setSortOrder(option.value)}
               >
                 {t(option.labelKey)}

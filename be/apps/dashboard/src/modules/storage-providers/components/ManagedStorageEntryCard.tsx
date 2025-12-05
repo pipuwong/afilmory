@@ -1,5 +1,5 @@
 import { Button, Modal } from '@afilmory/ui'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import { HardDrive } from 'lucide-react'
 import { m } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 
@@ -61,7 +61,7 @@ export function ManagedStorageEntryCard({
 
         <div className="relative">
           <div className="bg-accent/15 inline-flex h-12 w-12 items-center justify-center rounded-lg">
-            <DynamicIcon name="hard-drive" className="h-6 w-6 text-accent" />
+            <HardDrive className="h-6 w-6 text-accent" />
           </div>
         </div>
 
