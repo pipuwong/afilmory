@@ -6,6 +6,7 @@ import { BypassResponseTransform } from 'core/interceptors/response-transform.de
 import { SystemSettingService } from 'core/modules/configuration/system-setting/system-setting.service'
 import { BillingPlanService } from 'core/modules/platform/billing/billing-plan.service'
 import { BillingUsageService } from 'core/modules/platform/billing/billing-usage.service'
+import { ManagedStorageService } from 'core/modules/platform/managed-storage/managed-storage.service'
 import { TenantService } from 'core/modules/platform/tenant/tenant.service'
 import { desc, eq } from 'drizzle-orm'
 
@@ -29,6 +30,7 @@ export class SuperAdminTenantController {
     private readonly dataManagementService: DataManagementService,
     private readonly billingPlanService: BillingPlanService,
     private readonly billingUsageService: BillingUsageService,
+    private readonly managedStorageService: ManagedStorageService,
     private readonly systemSettings: SystemSettingService,
     private readonly db: DbAccessor,
   ) {}
@@ -53,7 +55,7 @@ export class SuperAdminTenantController {
 
   @Get('/')
   async listTenants(@Query() query: ListTenantsQueryDto) {
-    const [tenantResult, plans, storagePlanCatalog] = await Promise.all([
+    const [tenantResult, plans, storagePlanCatalog, managedProviderKey] = await Promise.all([
       this.tenantService.listTenants({
         page: query.page,
         limit: query.limit,
@@ -64,17 +66,23 @@ export class SuperAdminTenantController {
       }),
       Promise.resolve(this.billingPlanService.getPlanDefinitions()),
       this.systemSettings.getStoragePlanCatalog(),
+      this.systemSettings.getManagedStorageProviderKey(),
     ])
 
     const { items: tenantAggregates, total } = tenantResult
 
     const tenantIds = tenantAggregates.map((aggregate) => aggregate.tenant.id)
     const usageTotalsMap = await this.billingUsageService.getUsageTotalsForTenants(tenantIds)
+    const storageUsageMap =
+      managedProviderKey && tenantIds.length > 0
+        ? await this.managedStorageService.getUsageTotalsForTenants(managedProviderKey, tenantIds)
+        : {}
 
     return {
       tenants: tenantAggregates.map((aggregate) => ({
         ...aggregate.tenant,
         usageTotals: usageTotalsMap[aggregate.tenant.id] ?? [],
+        storageUsage: storageUsageMap[aggregate.tenant.id] ?? null,
       })),
       plans,
       storagePlans: Object.entries(storagePlanCatalog).map(([id, def]) => ({

@@ -104,12 +104,18 @@ export interface StoragePlanDefinition {
   capacityBytes?: number | null
 }
 
+export interface TenantStorageUsageSummary {
+  totalBytes: number
+  fileCount: number
+}
+
 export interface SuperAdminTenantSummary {
   id: string
   name: string
   slug: string
   planId: string
   storagePlanId?: string | null
+  storageUsage?: TenantStorageUsageSummary | null
   status: 'active' | 'inactive' | 'suspended'
   banned: boolean
   createdAt: string

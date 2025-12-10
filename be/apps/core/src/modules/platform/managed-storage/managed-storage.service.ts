@@ -89,6 +89,48 @@ export class ManagedStorageService {
     }
   }
 
+  async getUsageTotalsForTenants(
+    providerKey: string,
+    tenantIds: readonly string[],
+  ): Promise<Record<string, { totalBytes: number; fileCount: number }>> {
+    const normalizedProviderKey = requireString(providerKey, 'providerKey')
+    const normalizedTenantIds = Array.from(
+      new Set((tenantIds ?? []).filter((id): id is string => typeof id === 'string' && id.trim().length > 0)),
+    )
+    if (normalizedTenantIds.length === 0) {
+      return {}
+    }
+
+    const db = this.dbAccessor.get()
+    const rows = await db
+      .select({
+        tenantId: managedStorageFileReferences.tenantId,
+        totalBytes: sql<number>`coalesce(sum(${managedStorageFileReferences.size}), 0)`,
+        fileCount: sql<number>`count(*)`,
+      })
+      .from(managedStorageFileReferences)
+      .where(
+        and(
+          eq(managedStorageFileReferences.providerKey, normalizedProviderKey),
+          inArray(managedStorageFileReferences.tenantId, normalizedTenantIds),
+        ),
+      )
+      .groupBy(managedStorageFileReferences.tenantId)
+
+    const totals: Record<string, { totalBytes: number; fileCount: number }> = {}
+    for (const row of rows) {
+      const { tenantId } = row
+      if (!tenantId) {
+        continue
+      }
+      totals[tenantId] = {
+        totalBytes: Number(row.totalBytes ?? 0),
+        fileCount: Number(row.fileCount ?? 0),
+      }
+    }
+    return totals
+  }
+
   async deleteFileReferences(providerKey: string, storageKeys: string[], tenantId?: string | null): Promise<void> {
     const resolvedTenantId = this.resolveTenantId(tenantId)
     const normalizedProviderKey = requireString(providerKey, 'providerKey')
