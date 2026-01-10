@@ -1,7 +1,7 @@
 {
     "name": "@afilmory/og-renderer",
-    "type": "module",
     "private": true,
+    "type": "module",
     "exports": {
         ".": "./src/index.ts",
         "./renderer": "./src/og.renderer.tsx",
@@ -9,7 +9,7 @@
     },
     "devDependencies": {
         "@resvg/resvg-js": "2.6.2",
-        "hono": "4.11.1",
+        "hono": "4.11.3",
         "satori": "catalog:"
     }
 }

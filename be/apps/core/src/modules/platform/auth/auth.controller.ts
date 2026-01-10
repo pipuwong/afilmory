@@ -582,7 +582,7 @@ export class AuthController {
 
     headers.set('content-type', 'application/json; charset=utf-8')
 
-    return new Response(JSON.stringify(responseBody), {
+    return Response.json(responseBody, {
       status: source.status,
       statusText: source.statusText,
       headers,
@@ -655,7 +655,7 @@ export class AuthController {
       url: wrappedUrl,
     }
 
-    return new Response(JSON.stringify(nextPayload), {
+    return Response.json(nextPayload, {
       status: response.status,
       statusText: response.statusText,
       headers,

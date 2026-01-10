@@ -1101,7 +1101,7 @@ export class HonoHttpApplication {
 
   private json(context: Context, payload: unknown, status: number): Response {
     const normalizedPayload = payload === undefined ? null : payload
-    return new Response(JSON.stringify(normalizedPayload), {
+    return Response.json(normalizedPayload, {
       status,
       headers: {
         'content-type': 'application/json',

@@ -61,7 +61,7 @@ export async function createConfiguredApp(options: BootstrapOptions): Promise<Ho
 
   hono.onError((error, context) => {
     if (error instanceof BizException) {
-      return new Response(JSON.stringify(error.toResponse()), {
+      return Response.json(error.toResponse(), {
         status: error.getHttpStatus(),
         headers: {
           'content-type': 'application/json',
@@ -70,7 +70,7 @@ export async function createConfiguredApp(options: BootstrapOptions): Promise<Ho
     }
 
     if (error instanceof HttpException) {
-      return new Response(JSON.stringify(error.getResponse()), {
+      return Response.json(error.getResponse(), {
         status: error.getStatus(),
         headers: {
           'content-type': 'application/json',
@@ -84,7 +84,7 @@ export async function createConfiguredApp(options: BootstrapOptions): Promise<Ho
           ? (error as { statusCode?: number }).statusCode!
           : 500
 
-      return new Response(JSON.stringify(error), {
+      return Response.json(error, {
         status: statusCode,
         headers: {
           'content-type': 'application/json',
@@ -94,11 +94,11 @@ export async function createConfiguredApp(options: BootstrapOptions): Promise<Ho
 
     honoErrorLogger.error(`Unhandled error ${context.req.method} ${context.req.url}`, error)
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
         statusCode: 500,
         message: 'Internal server error',
-      }),
+      },
       {
         status: 500,
         headers: {

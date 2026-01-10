@@ -56,7 +56,7 @@ export default function eagleStoragePlugin(options: EagleStoragePluginOptions = 
           }
         }
         // Apply omitTagNamesInMetadata filter
-        const omit = new Set((eagleConfig as EagleConfig).omitTagNamesInMetadata ?? [])
+        const omit = new Set((eagleConfig as EagleConfig).omitTagNamesInMetadata)
         if (omit.size > 0 && meta.tags) {
           meta.tags = meta.tags.filter((t) => !omit.has(t))
         }

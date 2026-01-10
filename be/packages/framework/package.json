@@ -1,7 +1,7 @@
 {
   "name": "@afilmory/framework",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./src/index.ts",
@@ -15,21 +15,21 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest"
   },
-  "peerDependencies": {
-    "ioredis": ">=5.8.0"
-  },
   "dependencies": {
-    "hono": "4.11.1",
+    "hono": "4.11.3",
     "picocolors": "1.1.1",
     "reflect-metadata": "0.2.2",
     "tsyringe": "4.10.0",
-    "zod": "^4.2.1"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
-    "@vitest/coverage-v8": "4.0.15",
-    "ioredis": "5.8.2",
+    "@vitest/coverage-v8": "4.0.16",
+    "ioredis": "5.9.1",
     "unplugin-swc": "1.5.9",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
+  },
+  "peerDependencies": {
+    "ioredis": ">=5.8.0"
   }
 }

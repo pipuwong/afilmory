@@ -14,8 +14,7 @@ export default {
       meta: {
         type: 'problem',
         docs: {
-          description:
-            'Ensure that the versions of packages in the workspace are consistent',
+          description: 'Ensure that the versions of packages in the workspace are consistent',
           category: 'Possible Errors',
           recommended: true,
         },
@@ -26,13 +25,10 @@ export default {
         if (!context.filename.endsWith('package.json')) return {}
 
         const cwd = process.cwd()
-        const packageJsonFilePaths = fg.globSync(
-          ['packages/*/package.json', 'apps/*/package.json', 'package.json'],
-          {
-            cwd,
-            ignore: ['**/node_modules/**'],
-          },
-        )
+        const packageJsonFilePaths = fg.globSync(['packages/*/package.json', 'apps/*/package.json', 'package.json'], {
+          cwd,
+          ignore: ['**/node_modules/**'],
+        })
 
         /** @type {Map<string, { version: string, filePath: string }[]>} */
         const packageVersionMap = new Map()
@@ -70,16 +66,14 @@ export default {
             const packageVersion = node.value.value
 
             const versions = packageVersionMap.get(packageName)
-            if (!versions || versions.find((v) => v.version === packageVersion))
-              return
+            if (!versions || versions.some((v) => v.version === packageVersion)) return
 
             context.report({
               node,
               message: `Inconsistent versions of ${packageName}: ${Array.from(new Set(versions.map((v) => v.version))).join(', ')}`,
               suggest: versions.map((version) => ({
                 desc: `Follow the version ${version.version} in ${version.filePath}`,
-                fix: (fixer) =>
-                  fixer.replaceText(node.value, `"${version.version}"`),
+                fix: (fixer) => fixer.replaceText(node.value, `"${version.version}"`),
               })),
             })
           },

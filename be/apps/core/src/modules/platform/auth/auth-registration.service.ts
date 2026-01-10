@@ -306,7 +306,7 @@ export class AuthRegistrationService {
       )
     }
 
-    const response = new Response(JSON.stringify({ tenant: updatedTenant }), {
+    const response = Response.json({ tenant: updatedTenant }, {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     })
@@ -392,7 +392,7 @@ export class AuthRegistrationService {
         response = signupResponse
       } else if (sessionUser && tenantId) {
         userId = await this.attachSessionUserToTenant(tenantId)
-        response = new Response(JSON.stringify({ user: { id: userId } }), {
+        response = Response.json({ user: { id: userId } }, {
           status: 200,
           headers: { 'Content-Type': 'application/json' },
         })

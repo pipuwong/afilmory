@@ -1,8 +1,8 @@
 {
   "name": "@afilmory/utils",
-  "type": "module",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./*": "./src/*"
@@ -13,6 +13,6 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "motion": "12.23.26"
+    "motion": "12.25.0"
   }
 }

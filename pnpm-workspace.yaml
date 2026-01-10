@@ -18,10 +18,10 @@ catalog:
   tailwind-variants: 3.2.2
   tailwindcss: 4.1.18
   tailwindcss-animate: 1.0.7
-  tailwindcss-safe-area: 1.2.0
+  tailwindcss-safe-area: 1.3.0
   tailwindcss-uikit-colors: 1.0.0
   typescript: 5.9.3
-  zod: 4.2.1
+  zod: 4.3.5
 
 onlyBuiltDependencies:
   - esbuild

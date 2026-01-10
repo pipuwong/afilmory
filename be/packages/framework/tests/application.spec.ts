@@ -1623,7 +1623,7 @@ describe('APP_* providers and auto-registration of decorator enhancers', () => {
     @injectable()
     class AppFilter2 implements ExceptionFilter {
       async catch(_e: unknown, _host: ArgumentsHost) {
-        return new Response(JSON.stringify({ handled: 'app' }), {
+        return Response.json({ handled: 'app' }, {
           status: 499,
           headers: {
             'content-type': 'application/json',

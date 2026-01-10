@@ -18,7 +18,7 @@ const storageSignQuerySchema = z
       .optional()
       .transform((val) => {
         if (!val || val.trim().length === 0) {
-          return undefined
+          return
         }
         const parsed = Number.parseInt(val, 10)
         return Number.isFinite(parsed) ? parsed : undefined
