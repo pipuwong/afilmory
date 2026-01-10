@@ -21,6 +21,7 @@
     "@afilmory/db": "workspace:*",
     "@afilmory/env": "workspace:*",
     "@afilmory/framework": "workspace:*",
+    "@afilmory/og-renderer": "workspace:*",
     "@afilmory/redis": "workspace:*",
     "@afilmory/sdk": "workspace:*",
     "@afilmory/task-queue": "workspace:*",
@@ -45,7 +46,7 @@
     "picocolors": "1.1.1",
     "reflect-metadata": "0.2.2",
     "resend": "6.6.0",
-    "satori": "0.18.3",
+    "satori": "catalog:",
     "tsyringe": "4.10.0",
     "zod": "^4.2.1"
   },

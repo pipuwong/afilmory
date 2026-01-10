@@ -1,4 +1,5 @@
 /** @jsxImportSource hono/jsx */
+/** @jsxRuntime automatic */
 
 export interface PhotoDimensions {
   width: number

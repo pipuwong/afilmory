@@ -13,6 +13,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@afilmory/og-renderer": "workspace:*",
+    "@resvg/resvg-js": "2.6.2",
     "@vingle/bmp-js": "^0.2.5",
     "blurhash": "2.0.5",
     "c12": "^3.3.3",
@@ -23,6 +25,7 @@
     "fast-xml-parser": "5.3.3",
     "heic-convert": "2.1.0",
     "heic-to": "1.3.0",
+    "satori": "catalog:",
     "sharp": "0.34.5",
     "thumbhash": "0.1.1"
   },

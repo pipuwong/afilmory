@@ -3,6 +3,8 @@ import { resolve } from 'node:path'
 
 import type { PhotoManifestItem } from '@afilmory/builder'
 import type { OnModuleDestroy } from '@afilmory/framework'
+import type { ExifInfo, HomepageOgTemplateProps, PhotoDimensions } from '@afilmory/og-renderer'
+import { renderHomepageOgImage, renderOgImage } from '@afilmory/og-renderer'
 import { BizException, ErrorCode } from 'core/errors'
 import { SiteSettingService } from 'core/modules/configuration/site-setting/site-setting.service'
 import type { Context } from 'hono'
@@ -12,8 +14,6 @@ import { injectable } from 'tsyringe'
 import { ManifestService } from '../manifest/manifest.service'
 import geistFontUrl from './assets/Geist-Medium.ttf?url'
 import harmonySansScMediumFontUrl from './assets/HarmonyOS_Sans_SC_Medium.ttf?url'
-import { renderHomepageOgImage, renderOgImage } from './og.renderer'
-import type { ExifInfo, HomepageOgTemplateProps, PhotoDimensions } from './og.template'
 
 const CACHE_CONTROL = 'public, max-age=31536000, stale-while-revalidate=31536000'
 

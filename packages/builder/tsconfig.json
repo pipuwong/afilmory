@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -15,12 +19,22 @@
     "skipDefaultLibCheck": true,
     "noImplicitAny": false,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
     "paths": {
-      "@afilmory/builder/*": ["./src/*"],
-      "@pkg": ["./package.json"],
-      "@env": ["../../env.ts"]
+      "@afilmory/builder/*": [
+        "./src/*"
+      ],
+      "@pkg": [
+        "./package.json"
+      ],
+      "@env": [
+        "../../env.ts"
+      ],
     }
   },
-  "include": ["./src/**/*", "./scripts/**/*"]
+  "include": [
+    "./src/**/*",
+    "./scripts/**/*"
+  ]
 }

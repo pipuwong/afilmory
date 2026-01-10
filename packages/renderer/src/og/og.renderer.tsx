@@ -1,4 +1,5 @@
 /** @jsxImportSource hono/jsx */
+/** @jsxRuntime automatic */
 import { Buffer } from 'node:buffer'
 
 import { Resvg } from '@resvg/resvg-js'

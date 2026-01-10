@@ -20,7 +20,11 @@ src/core/
 │   └── exif.ts     # EXIF 数据提取
 ├── photo/          # 照片处理
 │   ├── info-extractor.ts # 照片信息提取
-│   ├── processor.ts # 照片处理主逻辑
+│   └── processor.ts # 照片处理主逻辑
+├── plugins/              # 插件系统
+│   ├── og-image-storage/ # OG 图片存储插件
+│   │   └── index.ts      # 生成并上传 OG 图片
+│   │   └── README.md     # 使用说明与集成示例
 │   └── geocoding.ts # 反向地理编码
 ├── manifest/       # Manifest 管理
 │   └── manager.ts  # Manifest 读写和管理
